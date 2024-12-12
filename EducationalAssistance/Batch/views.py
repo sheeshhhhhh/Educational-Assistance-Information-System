@@ -20,7 +20,7 @@ def BatchHistory(request):
 
 # not yet implemented
 def BatchDetails(request, pk):
-    batch = Batch.objects.get(batch_id=pk)
+    batch = Batch.objects.prefetch_related('student_set').get(batch_id=pk)
 
     return render(request, 'batch/batchDetails.html', {'batch': batch })
 

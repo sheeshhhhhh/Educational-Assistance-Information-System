@@ -8,8 +8,7 @@ class BatchForm(forms.ModelForm):
         model = Batch
         fields = ['batch_name', 'start_date', 'end_date', 'status', 'budget', 'limit', 'current_count']
 
-    batch_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'textInput', 'placeholder': 'Enter Batch Name'}), 
-        max_length=255)
+    batch_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'textInput', 'placeholder': 'Enter Batch Name'}))
     start_date = forms.DateField(widget=forms.TextInput(attrs={'class': 'dateInput', 'id': "datepicker-range-start", "name": 'start', 'placeholder': 'Enter Start Date'}))
     end_date = forms.DateField(widget=forms.TextInput(attrs={'class': 'dateInput', 'id': "datepicker-range-end", "name": 'end', 'placeholder': 'Enter End Date'}))
     status = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'textInput', 'placeholder': 'Enter Status'}))

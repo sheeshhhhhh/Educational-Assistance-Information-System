@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'EducationalAssistance',
     'Batch',
-    'Student'
+    'Student',
 ]
 
 MIDDLEWARE = [

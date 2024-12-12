@@ -1,0 +1,52 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <div class="container p-5">
+        <div class="flex w-full justify-start">
+            <h1 class="font-bold text-xl md:text-3xl">
+                Update Student
+            </h1>
+        </div>
+        <div class="p-4 flex justify-center items-center w-full">
+            <form method="post" class="w-[550px] p-4 mt-8">
+                {{ form.non_field_errors }}
+                {{ form.errors }}
+                <h1 class="font-bold text-lg my-3">
+                    Batch Name: <span class="font-medium">{{ student.batch_name }}</span>
+                </h1>
+                {% csrf_token %}
+                <div class="mb-5">
+                    <label for="id_requirementsStatus" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Requirement Status</label>
+                    {{ form.requirementsStatus }}
+                </div>
+                <div class="mb-5">
+                    <label for="id_batch_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Full Name</label>
+                    {{ form.name }}
+                </div>
+                <div class="mb-5">
+                    <label for="id_address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
+                    {{ form.address }}
+                </div>
+                <div class="mb-5">
+                    <label for="id_school" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">School (Currently)</label>
+                    {{ form.school }}
+                </div>
+                <div class="flex justify-between gap-3">
+                    <div class="mb-5">
+                        <label for="id_email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                        {{ form.email }}
+                    </div>
+                    <div class="mb-5">
+                        <label for="id_grade" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Grade</label>
+                        {{ form.grade }}
+                    </div>
+                </div>
+                <div class="w-full flex items-center justify-center mt-3">
+                    <button type="submit" class="w-[300px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                        Add Batch
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

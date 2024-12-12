@@ -24,4 +24,5 @@ urlpatterns = [
     path('login/', views.loginView, name='login'),
 
     path('batch/', include('Batch.urls')),
+    path('student/', include('Student.urls')),
 ]

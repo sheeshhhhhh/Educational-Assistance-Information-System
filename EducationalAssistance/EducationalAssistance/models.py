@@ -19,6 +19,9 @@ class Batch(models.Model):
 
     def is_full(self):
         return self.current_count >= self.limit
+    
+    def __str__(self):
+        return self.batch_name
 
 class RequirementStatusCoices(models.TextChoices):
     Pending = 'Pending'
@@ -33,3 +36,8 @@ class Student(models.Model):
     email = models.EmailField(max_length=255, unique=True)
     address = models.CharField(max_length=255)
     requirementsStatus = models.CharField(max_length=255, choices=RequirementStatusCoices.choices, default=RequirementStatusCoices.Completed)
+    
+    dateSubmitted = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
