@@ -1,19 +1,31 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from EducationalAssistance.models import Batch
+from django.shortcuts import get_object_or_404, redirect, render
+
+from EducationalAssistance.models import Batch, StatusChoices
+
 from .forms import BatchForm
+
 
 def Batches(request):
     batches = Batch.objects.all()
 
     return render(request, 'batch/Batches.html', {'batches': batches })
 
+def BatchHistory(request):
+    if request.method == 'POST':
+        batches = Batch.objects.filter(status=request.POST['status'])
+    else:
+        batches = Batch.objects.filter(status__in=[StatusChoices.Finished, StatusChoices.Cancelled])
+
+    return render(request, 'batch/batchHistory.html', {'batches': batches })
+
+# not yet implemented
 def BatchDetails(request, pk):
     batch = Batch.objects.get(batch_id=pk)
 
-    return render(request, 'batch/BatchDetails.html', {'batch': batch})
+    return render(request, 'batch/batchDetails.html', {'batch': batch })
 
 def AddBatch(request):
-    if(request.method == 'POST'):
+    if request.method == 'POST':
         form = BatchForm(request.POST)
         if form.is_valid():
             form.save()

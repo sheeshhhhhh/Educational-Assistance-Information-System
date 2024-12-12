@@ -6,6 +6,7 @@ urlpatterns  = [
     path('', views.Batches, name='Batches'),
     path('add/', views.AddBatch, name='AddBatch'),
     path('batch/<int:pk>/', views.BatchDetails, name='BatchDetails'),
+    path('history/', views.BatchHistory, name='BatchHistory'),
     path('update/<int:pk>/', views.UpdateBatch, name='UpdateBatch'),
     path('delete/<int:pk>/', views.DeleteBatch, name='DeleteBatch'),
 ]

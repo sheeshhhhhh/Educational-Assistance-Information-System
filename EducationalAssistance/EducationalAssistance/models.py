@@ -2,7 +2,7 @@ from django.db import models
 
 class StatusChoices(models.TextChoices):
     Open = 'Open'
-    Closed = 'Finished'
+    Finished = 'Finished'
     Cancelled = 'Cancelled'
 
 class Batch(models.Model):
@@ -20,6 +20,10 @@ class Batch(models.Model):
     def is_full(self):
         return self.current_count >= self.limit
 
+class RequirementStatusCoices(models.TextChoices):
+    Pending = 'Pending'
+    Completed = 'Completed'
+
 class Student(models.Model):
     batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
     student_id = models.AutoField(primary_key=True)
@@ -28,3 +32,4 @@ class Student(models.Model):
     grade = models.IntegerField(blank=True, null=True)
     email = models.EmailField(max_length=255, unique=True)
     address = models.CharField(max_length=255)
+    requirementsStatus = models.CharField(max_length=255, choices=RequirementStatusCoices.choices, default=RequirementStatusCoices.Completed)
