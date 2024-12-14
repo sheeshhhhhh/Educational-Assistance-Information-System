@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,8 +9,279 @@
     <title>
         Educational Assistance System
     </title>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
 </head>
 <body>
-    
+    <nav class="relative border-b-[2px] bg-white border-gray-200 dark:bg-gray-900 z-50">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 z-50">
+          <a href="" class="flex items-center space-x-3 rtl:space-x-reverse">
+                <h1 class="font-bold text-lg md:text-xl text-blue-500">
+                  Educational Assistance System
+                </h1>
+          </a>
+          <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
+              <span class="sr-only">Open main menu</span>
+              <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+              </svg>
+          </button>
+          <div class="hidden w-full md:block md:w-auto" id="navbar-default">
+            <ul class="font-medium flex flex-col items-start lg:items-center p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+              <li>
+                <a href="#Home" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent" aria-current="page">Home</a>
+              </li>
+              <li>
+                <a href="#About" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">About</a>
+              </li>
+              <li>
+                <a href="#Contact" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Contact</a>
+              </li>
+              {% if user.is_authenticated  %}
+                
+                <li>
+                    <a href="/batch/">
+                        <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                            Dashboard
+                        </button>
+                    </a>
+                </li>
+                <li>
+                    <a href="/logout/">
+                        <button type="button" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+                            Logout
+                        </button>
+                    </a>
+                </li>
+              {% else %}
+                <li>
+                    <a href="/login/">
+                        <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                            Login
+                        </button>
+                    </a>
+                </li>
+                <li>
+                    <a href="/register/">
+                        <button type="button" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+                            Sign Up
+                        </button>
+                    </a>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+    </nav>
+
+    <div id="Home" class="relative isolate px-6 pt-14 lg:px-8">
+        <div class="absolute inset-x-0 -top-40 z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
+          <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-white to-blue-500 opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
+        </div>
+        <div class="mx-auto max-w-2xl py-26 sm:py-32">
+            <div class="hidden sm:mb-8 sm:flex sm:justify-center">
+                <div class="relative rounded-full px-3 py-1 text-sm/6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
+                    You can look at the source code here. <a href="https://github.com/sheeshhhhhh/Educational-Assistance-Information-System" class="font-semibold text-indigo-600"><span class="absolute inset-0" aria-hidden="true"></span>Github <span aria-hidden="true">&rarr;</span></a>
+                </div>
+            </div>
+            <div class="text-center">
+                <h1 class="text-transparent bg-clip-text bg-gradient-to-bl from-blue-600 to-gray-500 text-balance text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl">
+                    Educational Assistance System to help Governments
+                </h1>
+                <p class="mt-8 text-pretty text-lg font-medium text-gray-500 sm:text-xl/8">
+                    To Help Governments in providing Educational Assistance to the students. with this information system it is easier to keep track of the students and the batches.
+                </p>
+                <div class="mt-10 flex items-center justify-center gap-x-6">
+                <a href="/register/" class="rounded-md bg-blue-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                    Get started
+                </a>
+                <a href="#features" class="text-sm/6 font-semibold text-gray-900">
+                    Learn more <span aria-hidden="true">→</span>
+                </a>
+                </div>
+            </div>
+        </div>
+        <div class="shadow-md mx-auto max-w-[1300px] mb-5 mt-12 sm:mt-8 md:mt-[calc(var(--spacing)*24)] overflow-hidden rounded-2xl bg-gray-300 border">
+            <img class="rounded-xl border max-w-[]" height="1442px" src="{% static 'image/exampleEducationalAssistance.jpg' %}" />
+        </div>
+
+        <section id="About" class="py-6 sm:py-12 md:py-18 lg:py-24 relative">
+            <div class="w-full max-w-7xl px-4 md:px-5 lg:px-5 mx-auto">
+                <div class="w-full justify-start items-center gap-8 grid lg:grid-cols-2 grid-cols-1">
+                    <div class="w-full flex-col justify-start lg:items-start items-center gap-10 inline-flex">
+                        <div class="w-full flex-col justify-start lg:items-start items-center gap-4 flex">
+                            <h2 class="text-transparent bg-clip-text bg-gradient-to-br from-blue-600 to-gray-500 text-4xl font-bold font-manrope leading-normal lg:text-start text-center">
+                                Free Platform for Government Workders, Educational Assistance Management System
+                            </h2>
+                            <p class="text-gray-500 text-base font-normal leading-relaxed lg:text-start text-center">
+                                This platform is designed to empower government agencies with an intuitive, efficient way to manage educational assistance programs. 
+                                By offering a user-friendly interface and comprehensive tools, the system streamlines the allocation, tracking, and reporting of educational aid, making it easier for government personnel to assist students and manage resources.
+                                The goal is to provide a free, accessible solution that enhances productivity and transparency, ensuring that educational assistance is distributed fairly and efficiently to those in need.
+                            </p>
+                        </div>
+                    </div>
+                    <img class="lg:mx-0 mx-auto h-full rounded-3xl object-cover" src="{% static 'image/educationAssistancePic.avif'%}" alt="about Us image" />
+                </div>
+            </div>
+        </section>
+
+        <div  id="features" class="bg-white py-16 sm:py-20 md:py-28">
+            <div class="mx-auto max-w-7xl px-6 lg:px-8">
+                <div class="mx-auto max-w-2xl lg:text-center">
+                    <p class="mt-2 text-transparent bg-clip-text bg-gradient-to-br from-blue-600 to-gray-500 text-pretty text-4xl font-semibold tracking-tight sm:text-5xl lg:text-balance">
+                        Everything you need to manage educational assistance
+                    </p>
+                    <p class="mt-6 text-lg/8 text-gray-600">
+                        This will come with a lot of features that will help the government workers to manage the information of educational assistance of the students.
+                    </p>
+                </div>
+                <div class="mx-auto mt-8 max-w-2xl sm:mt-12 lg:mt-16 lg:max-w-4xl">
+                    <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
+                        <div class="relative pl-16">
+                            <dt class="text-base/7 font-semibold text-gray-900">
+                            <div class="absolute left-0 top-0 flex size-10 items-center justify-center rounded-lg bg-blue-500">
+                                <svg class="size-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0 3 3m-3-3-3 3M6.75 19.5a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z" />
+                                </svg>
+                            </div>
+                                Batches
+                            </dt>
+                            <dd class="mt-2 text-base/7 text-gray-600">
+                                Education Assistance System will have a feature to manage the batches of the students. 
+                                This will help the government workers to manage the students in the batches.
+                            </dd>
+                        </div>
+                        <div class="relative pl-16">
+                            <dt class="text-base/7 font-semibold text-gray-900">
+                                <div class="absolute left-0 top-0 flex size-10 items-center justify-center rounded-lg bg-blue-500">
+                                    <svg class="size-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                                    </svg>
+                                </div>
+                                Secured
+                            </dt>
+                            <dd class="mt-2 text-base/7 text-gray-600">
+                                This is a secured platform that will keep confidential information safe and secure. 
+                                the system ensures that all data is protected from unauthorized access and breaches.
+                            </dd>
+                        </div>
+                        <div class="relative pl-16">
+                            <dt class="text-base/7 font-semibold text-gray-900">
+                            <div class="absolute left-0 top-0 flex size-10 items-center justify-center rounded-lg bg-blue-500">
+                                <svg class="size-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+                                </svg>
+                            </div>
+                                Simple Interface
+                            </dt>
+                            <dd class="mt-2 text-base/7 text-gray-600">
+                                This platform features a simple and consistent interface that ensures ease of use for government workers.
+                                The intuitive design ensures easy navigation, reducing the learning curve and boosting productivity.
+                            </dd>
+                        </div>
+                        <div class="relative pl-16">
+                            <dt class="text-base/7 font-semibold text-gray-900">
+                                <div class="absolute left-0 top-0 flex size-10 items-center justify-center rounded-lg bg-blue-500">
+                                    <svg class="size-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8zM11 7h2v6h-2zm0 8h2v2h-2z"/>
+                                    </svg>
+                                </div>
+                                Free and Accessible
+                            </dt>
+                            <dd class="mt-2 text-base/7 text-gray-600">
+                                This platform is completely free and accessible to all government workers. It is designed to be a community-driven tool that helps manage educational assistance programs efficiently and transparently.
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+        <div id="Contact" class="max-w-7xl px-4 lg:px-6 lg:px-8 py-12 lg:py-24 mx-auto">
+            <div class="mb-6 sm:mb-10 max-w-2xl text-center mx-auto">
+              <h2 class="font-medium text-black text-2xl sm:text-4xl dark:text-white">
+                Contacts
+              </h2>
+            </div>
+          
+            <div class="grid grid-cols-1 lg:grid-cols-2 lg:items-center gap-6 md:gap-8 lg:gap-12">
+              <div class="group aspect-w-16 aspect-h-6 lg:aspect-h-14 overflow-hidden bg-gray-100 rounded-2xl dark:bg-neutral-800">
+                <img class="group-hover:scale-105 group-focus:scale-105 transition-transform duration-500 ease-in-out object-cover rounded-2xl" src="{% static 'image/Group.jpg'%}" alt="Contacts Image">
+              </div>
+              <!-- End Col -->
+          
+              <div class="space-y-8 lg:space-y-16">
+                <div>
+                  <h3 class="mb-5 font-semibold text-black dark:text-white">
+                    Our address
+                  </h3>
+          
+                  <!-- Grid -->
+                  <div class="grid sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8 lg:gap-12">
+                    <div class="flex gap-4">
+                      <svg class="shrink-0 size-5 text-gray-500 dark:text-neutral-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          
+                      <div class="grow">
+                        <p class="text-sm text-gray-600 dark:text-neutral-400">
+                          Philippines
+                        </p>
+                        <address class="mt-1 text-black not-italic dark:text-white">
+                          Sta Maria Poblacion Bulacan, <br>
+                          STI College Sta Maria
+                        </address>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- End Grid -->
+                </div>
+          
+                <div>
+                  <h3 class="mb-5 font-semibold text-black dark:text-white">
+                    Our contacts
+                  </h3>
+          
+                  <!-- Grid -->
+                  <div class="grid sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8 lg:gap-12">
+                    <div class="flex gap-4">
+                      <svg class="shrink-0 size-5 text-gray-500 dark:text-neutral-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.2 8.4c.5.38.8.97.8 1.6v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V10a2 2 0 0 1 .8-1.6l8-6a2 2 0 0 1 2.4 0l8 6Z"></path><path d="m22 10-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 10"></path></svg>
+          
+                      <div class="grow">
+                        <p class="text-sm text-gray-600 dark:text-neutral-400">
+                          Email us
+                        </p>
+                        <p>
+                          <a class="text-blue-500 relative inline-block font-medium text-black underline-offset-4 hover:underline hover:text-blue-700" href="renatodsantosjr9@gmail.com">
+                            renatodsantosjr9@gmail.com
+                          </a>
+                        </p>
+                      </div>
+                    </div>
+          
+                    <div class="flex gap-4">
+                      <svg class="shrink-0 size-5 text-gray-500 dark:text-neutral-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          
+                      <div class="grow">
+                        <p class="text-sm text-gray-600 dark:text-neutral-400">
+                          Call us
+                        </p>
+                        <p>
+                          <a class="relative inline-block font-medium text-black">
+                            +639878727382
+                          </a>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- End Grid -->
+                </div>
+              </div>
+              <!-- End Col -->
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
 </body>
 </html>

@@ -3,8 +3,15 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
 
-# not finish yet
+def homepage(request):
+    user = request.user
+
+    return render(request, 'homePage.html', { 'user': user })
+
 def loginView(request):
+    if request.user.is_authenticated:
+        return redirect('batch') 
+
     username = ''
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -19,8 +26,11 @@ def loginView(request):
 
     return render(request, 'login.html', { 'username': username })
 
-# not finish yet
+
 def register(request):
+    if request.user.is_authenticated:
+        return redirect('batch') 
+
     if request.method == 'POST':
         username = request.POST.get('username')
         email = request.POST.get('email')
@@ -56,5 +66,5 @@ def register(request):
 def logoutView(request):
     logout(request)
 
-    return redirect('login')
+    return redirect('homepage')
 
