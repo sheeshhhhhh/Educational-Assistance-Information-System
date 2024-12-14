@@ -1,11 +1,13 @@
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import get_object_or_404, redirect, render
 from EducationalAssistance.models import Batch, StatusChoices
+from django.contrib.auth.decorators import login_required
 from .forms import BatchForm
 
-
+@login_required
 def Batches(request):
-    batches = Batch.objects.filter(status=StatusChoices.Open).order_by('end_date')
+    user = request.user
+    batches = Batch.objects.filter(status=StatusChoices.Open, created_by=user).order_by('end_date')
     page = request.GET.get('page', 1)
 
     paginator = Paginator(batches, 10)
@@ -18,11 +20,13 @@ def Batches(request):
 
     return render(request, 'batch/Batches.html', {'batches': batches })
 
+@login_required
 def BatchHistory(request):
+    user = request.user
     if request.method == 'POST':
-        batches = Batch.objects.filter(status=request.POST['status'])
+        batches = Batch.objects.filter(status=request.POST['status'], created_by=user)
     else:
-        batches = Batch.objects.filter(status__in=[StatusChoices.Finished, StatusChoices.Cancelled])
+        batches = Batch.objects.filter(status__in=[StatusChoices.Finished, StatusChoices.Cancelled], created_by=user)
     page = request.GET.get('page', 1)
     paginator = Paginator(batches, 10)
 
@@ -35,7 +39,7 @@ def BatchHistory(request):
 
     return render(request, 'batch/batchHistory.html', {'batches': batches })
 
-# not yet implemented
+@login_required
 def BatchDetails(request, pk):
     batch = Batch.objects.prefetch_related('student_set').get(batch_id=pk)
     students = batch.student_set.all()
@@ -56,6 +60,7 @@ def BatchDetails(request, pk):
 
     return render(request, 'batch/batchDetails.html', {'batch': batch, 'students': students })
 
+@login_required
 def AddBatch(request):
     if request.method == 'POST':
         form = BatchForm(request.POST)
@@ -67,6 +72,7 @@ def AddBatch(request):
 
     return render(request, 'batch/AddBatch.html', {'form': form})
 
+@login_required
 def UpdateBatch(request, pk):
     instance = Batch.objects.get(batch_id=pk)
     if request.method == 'POST':
@@ -77,9 +83,9 @@ def UpdateBatch(request, pk):
     else:
         form = BatchForm(instance=instance)
 
-    print(form['start_date'].value())
     return render(request, 'batch/updateBatch.html', {'form': form})
 
+@login_required
 def CancelBatch(request, pk):
     batch = get_object_or_404(Batch, batch_id=pk)
     if not batch:

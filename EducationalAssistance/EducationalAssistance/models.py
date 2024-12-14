@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class StatusChoices(models.TextChoices):
     Open = 'Open'
@@ -16,6 +17,9 @@ class Batch(models.Model):
 
     limit = models.IntegerField()
     current_count = models.IntegerField(default=0)
+
+    # Add foreign key to User
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="batches")
 
     def is_full(self):
         return self.current_count >= self.limit

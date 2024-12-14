@@ -1,12 +1,14 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.contrib.auth.decorators import login_required
 from EducationalAssistance.models import Batch, Student
 from .forms import StudentForm
 
 
-# use for managing student but not adding
+@login_required
 def Students(request):
-    students = Student.objects.all()
+    user = request.user
+    students = Student.objects.filter(batch__created_by=user).order_by('dateSubmitted')
     page = request.GET.get('page', 1)
 
     paginator = Paginator(students, 10)
@@ -19,12 +21,13 @@ def Students(request):
 
     return render(request, 'students/Students.html', {'students': students })
 
-# when user click this it will show the details of the student
+@login_required
 def StudentDetails(request, pk):
     student = Student.objects.get(student_id=pk)
 
     return render(request, 'students/studentDetails.html', {'student': student})
 
+@login_required
 def AddStudent(request, batch_id):
     batch_instance = get_object_or_404(Batch, batch_id=batch_id)
     if request.method == 'POST':
@@ -48,6 +51,7 @@ def AddStudent(request, batch_id):
 
     return render(request, 'students/addStudent.html', { 'form': form, 'batch': batch_instance })
 
+@login_required
 def UpdateStudent(request, pk):
     instance = Student.objects.get(student_id=pk)
     if request.method == 'POST':
@@ -60,6 +64,7 @@ def UpdateStudent(request, pk):
     
     return render(request, 'students/updateStudent.html', { 'form': form })
 
+@login_required
 def DeleteStudent(request, pk):
     student = get_object_or_404(Student, student_id=pk)
 
