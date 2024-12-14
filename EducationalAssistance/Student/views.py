@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.contrib.auth.decorators import login_required
 from EducationalAssistance.models import Batch, Student
+from django.db.models import Q
 from .forms import StudentForm
 
 
@@ -10,6 +11,23 @@ def Students(request):
     user = request.user
     students = Student.objects.filter(batch__created_by=user).order_by('dateSubmitted')
     page = request.GET.get('page', 1)
+
+    if request.method == 'POST':
+        search = request.POST.get('search', '').strip()
+        date_search = request.POST.get('date_search', '').strip()
+        status = request.POST.get('status', '').strip()
+
+        query = Q(batch__created_by=user)
+
+        if search:
+            query &= (Q(name__icontains=search) | Q(email__icontains=search) | Q(school__icontains=search) | Q(address__icontains=search))
+        if date_search:
+            print("being called")
+            query &= Q(dateSubmitted=date_search)
+        if status and status != "Choose a status":
+            query &= Q(requirementsStatus=status)
+
+        students = Student.objects.filter(query).order_by('dateSubmitted')
 
     paginator = Paginator(students, 10)
     try:
