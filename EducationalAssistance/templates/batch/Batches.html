@@ -19,63 +19,87 @@
         </header>
 
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                        <th scope="col" class="px-6 py-3">
-                            Batch name
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            budget
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            status
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            count
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            start_date
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            end_date
-                        </th>
-                        <th scope="col" class="px-3 py-3">
-                            Actions
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for batch in batches %}
-                        <tr onclick="viewBatchRedirect('{{batch.batch_id}}')" class="hover:bg-blue-100 odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ batch.batch_name }}
+            <div class="min-h-[570px]">
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                Batch name
                             </th>
-                            <td class="px-6 py-4">
-                                {{ batch.budget }}
-                            </td>
-                            <td class="px-6 py-4 font-semibold {% if batch.status == 'Open' %} text-green-600 {% else %} text-red-600 {% endif %}">
-                                {{ batch.status }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ batch.current_count }} / {{ batch.limit }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ batch.start_date }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ batch.end_date }}
-                            </td>
-                            <td class="px-6 py-4">
-                                <a href="update/{{batch.batch_id}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                            </td>
-                            <td class="px-6 py-4">
-                                <a href="delete/{{batch.batch_id}}" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
-                            </td>
+                            <th scope="col" class="px-6 py-3">
+                                budget
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                status
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                count
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                start_date
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                end_date
+                            </th>
+                            <th scope="col" class="px-3 py-3">
+                                Actions
+                            </th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {% for batch in batches %}
+                            <tr onclick="viewBatchRedirect('{{batch.batch_id}}')" class="h-[52.5px] hover:bg-blue-100 odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    {{ batch.batch_name }}
+                                </th>
+                                <td class="px-6 py-4">
+                                    {{ batch.budget }}
+                                </td>
+                                <td class="px-6 py-4 font-semibold {% if batch.status == 'Open' %} text-green-600 {% else %} text-red-600 {% endif %}">
+                                    {{ batch.status }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ batch.current_count }} / {{ batch.limit }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ batch.start_date }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ batch.end_date }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    <a href="update/{{batch.batch_id}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <a href="cancel/{{batch.batch_id}}" class="font-medium text-red-600 dark:text-red-500 hover:underline">Cancel</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- Pagination controls -->
+            <div class="pagination">
+                <span class="step-links flex gap-3 items-center py-3 px-5">
+                    {% if batches.has_previous %}
+                        <a class="flex items-center justify-center px-4 h-10 text-base font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                        href="?page={{ batches.previous_page_number }}">
+                            Previous
+                        </a>
+                    {% endif %}
+
+                    <span class="font-medium text-gray-500 dark:text-gray-400">
+                        Page {{ batches.number }} of {{ batches.paginator.num_pages }}
+                    </span>
+
+                    {% if batches.has_next %}
+                        <a class="flex items-center justify-center px-4 max-w-[200px] h-10 ms-3 text-base font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                        href="?page={{ batches.next_page_number }}">
+                            Next
+                        </a>
+                    {% endif %}
+                </span>
+            </div>
         </div>
 
         </div>

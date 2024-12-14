@@ -22,6 +22,10 @@ class Batch(models.Model):
     
     def __str__(self):
         return self.batch_name
+    
+    @property
+    def formatted_start_date(self):
+        return self.start_date.strftime('%m/%d/%Y')
 
 class RequirementStatusCoices(models.TextChoices):
     Pending = 'Pending'
@@ -33,11 +37,16 @@ class Student(models.Model):
     name = models.CharField(max_length=100)
     school = models.CharField(max_length=255)
     grade = models.IntegerField(blank=True, null=True)
-    email = models.EmailField(max_length=255, unique=True)
+    email = models.EmailField(max_length=255)
     address = models.CharField(max_length=255)
     requirementsStatus = models.CharField(max_length=255, choices=RequirementStatusCoices.choices, default=RequirementStatusCoices.Completed)
     
     dateSubmitted = models.DateField(auto_now_add=True)
+
+    class Meta:
+        constraints  = [
+            models.UniqueConstraint(fields=['batch', 'email'], name="Unique email per Batch")
+        ]
 
     def __str__(self):
         return self.name

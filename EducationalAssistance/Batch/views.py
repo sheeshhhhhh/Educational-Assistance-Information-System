@@ -1,12 +1,20 @@
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import get_object_or_404, redirect, render
-
 from EducationalAssistance.models import Batch, StatusChoices
-
 from .forms import BatchForm
 
 
 def Batches(request):
-    batches = Batch.objects.all()
+    batches = Batch.objects.filter(status=StatusChoices.Open).order_by('end_date')
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(batches, 10)
+    try:
+        batches = paginator.page(page)
+    except PageNotAnInteger:
+        batches = paginator.page(1)
+    except EmptyPage:
+        batches = paginator.page(paginator.num_pages)
 
     return render(request, 'batch/Batches.html', {'batches': batches })
 
@@ -15,14 +23,38 @@ def BatchHistory(request):
         batches = Batch.objects.filter(status=request.POST['status'])
     else:
         batches = Batch.objects.filter(status__in=[StatusChoices.Finished, StatusChoices.Cancelled])
+    page = request.GET.get('page', 1)
+    paginator = Paginator(batches, 10)
+
+    try:
+        batches = paginator.page(page)
+    except PageNotAnInteger:
+        batches = paginator.page(1)
+    except EmptyPage:
+        batches = paginator.page(paginator.num_pages)
 
     return render(request, 'batch/batchHistory.html', {'batches': batches })
 
 # not yet implemented
 def BatchDetails(request, pk):
     batch = Batch.objects.prefetch_related('student_set').get(batch_id=pk)
+    students = batch.student_set.all()
 
-    return render(request, 'batch/batchDetails.html', {'batch': batch })
+    if request.method == 'POST' and 'search_student' in request.POST:
+        search_query = request.POST['search_student']
+        students = students.filter(name__icontains=search_query)
+
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(students, 10)
+    try:
+        students = paginator.page(page)
+    except PageNotAnInteger:
+        students = paginator.page(1)
+    except EmptyPage:
+        students = paginator.page(paginator.num_pages)
+
+    return render(request, 'batch/batchDetails.html', {'batch': batch, 'students': students })
 
 def AddBatch(request):
     if request.method == 'POST':
@@ -45,12 +77,13 @@ def UpdateBatch(request, pk):
     else:
         form = BatchForm(instance=instance)
 
+    print(form['start_date'].value())
     return render(request, 'batch/updateBatch.html', {'form': form})
 
-def DeleteBatch(request, pk):
+def CancelBatch(request, pk):
     batch = get_object_or_404(Batch, batch_id=pk)
     if not batch:
         return redirect(Batches)
-    batch.delete()
-    
+    batch.status = StatusChoices.Cancelled
+    batch.save()
     return redirect(Batches)

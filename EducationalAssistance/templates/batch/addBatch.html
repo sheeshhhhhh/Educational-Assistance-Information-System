@@ -15,15 +15,18 @@
                 <div class="mb-5">
                     <label for="id_batch_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Batch Name</label>
                     {{ form.batch_name }}
+                    {{ form.batct_name.error }}
                 </div>
                 <div class="flex justify-between gap-3">
                     <div class="mb-5">
                         <label for="id_budget" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Budget (₱eso)</label>
                         {{ form.budget }}
+                        {{ form.budget.error }}
                     </div>
                     <div class="mb-5">
                         <label for="id_limit" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Limit</label>
                         {{ form.limit }}
+                        {{ form.limit.error }}
                     </div>
                 </div>
                 <h2 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -37,6 +40,7 @@
                           </svg>
                       </div>
                       {{ form.start_date }}
+                      {{ form.start_date.error }}
                     </div>
                     <span class="mx-4 text-gray-500">to</span>
                     <div class="relative">
