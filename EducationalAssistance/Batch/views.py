@@ -65,12 +65,14 @@ def AddBatch(request):
     if request.method == 'POST':
         form = BatchForm(request.POST)
         if form.is_valid():
-            form.save()
+            instance = form.save(commit=False)
+            instance.created_by = request.user
+            instance.save()
             return redirect(Batches)
     else:
         form = BatchForm()
 
-    return render(request, 'batch/AddBatch.html', {'form': form})
+    return render(request, 'batch/addBatch.html', {'form': form})
 
 @login_required
 def UpdateBatch(request, pk):
