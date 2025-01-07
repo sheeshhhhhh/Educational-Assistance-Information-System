@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from .forms import TeamForm
 
 def homepage(request):
     user = request.user
@@ -68,3 +70,32 @@ def logoutView(request):
 
     return redirect('homepage')
 
+@login_required
+def CreateTeam(request):
+    if request.method == 'POST':
+        form = TeamForm(request.POST)
+        if form.is_valid():
+            team = form.save(commit=False)
+            team.members = request.user
+            team.save()
+
+            return redirect('batch')
+    else:
+        form = TeamForm()
+
+    return render(request, 'createTeam.html', { 'form': form })
+
+@login_required
+def ConnectTeam(request):
+    user = request.user
+    if request.method == 'POST':
+        newMember = request.POST.get('newMember')
+        try:
+            newUser = User.objects.get(username=newMember)
+            if newUser:
+                user.teams.add(newUser)
+                return redirect('batch')
+        except User.DoesNotExist:
+            messages.error(request, 'User does not exist')
+
+    return render(request, 'connectTeam.html')

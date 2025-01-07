@@ -1,6 +1,16 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+class Teams(models.Model):
+    team_id = models.AutoField(primary_key=True)
+    team_name = models.CharField(max_length=255)
+    
+    #so that it can be accessed by user.teams.all()
+    members = models.ForeignKey(User, on_delete=models.CASCADE, related_name="teams")
+
+    def __str__(self):
+        return self.team_name
+
 class StatusChoices(models.TextChoices):
     Open = 'Open'
     Finished = 'Finished'
