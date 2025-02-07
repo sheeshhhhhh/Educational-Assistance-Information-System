@@ -28,4 +28,7 @@ urlpatterns = [
 
     path('batch/', include('Batch.urls'), name='batch'),
     path('student/', include('Student.urls'), name='student'),
+
+    path('team/create', views.CreateTeam, name='create_team'),
+    path('team/connect', views.ConnectTeam, name='connect_team')
 ]

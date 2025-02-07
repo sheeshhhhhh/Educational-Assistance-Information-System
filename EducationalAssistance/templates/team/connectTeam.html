@@ -1,0 +1,31 @@
+{% extends 'index.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="container p-5">
+        <div class="flex w-full justify-start">
+            <h1 class="font-bold text-xl md:text-3xl">
+                Connect a member to Team
+            </h1>
+        </div>
+        <div class="p-4 flex justify-center items-center w-full">
+            <form method="post" class="w-[550px] p-4 mt-8">
+                {% csrf_token %}
+                <div class="p-4 mb-4 text-sm text-red-600">
+                    {{ error }}
+                </div>
+                <div class="mb-5">
+                    <label for="id_team_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username of the user</label>
+                    <input name="username" class="textInput" />
+                </div>
+
+                <div class="w-full flex items-center justify-center mt-3">
+                    <button type="submit" class="w-[300px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                        Connect team
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

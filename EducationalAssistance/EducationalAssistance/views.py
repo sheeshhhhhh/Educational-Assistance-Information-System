@@ -83,19 +83,20 @@ def CreateTeam(request):
     else:
         form = TeamForm()
 
-    return render(request, 'createTeam.html', { 'form': form })
+    return render(request, 'team/createTeam.html', { 'form': form })
 
 @login_required
 def ConnectTeam(request):
     user = request.user
     if request.method == 'POST':
-        newMember = request.POST.get('newMember')
+        newMember = request.POST.get('username')
+        
         try:
             newUser = User.objects.get(username=newMember)
             if newUser:
                 user.teams.add(newUser)
                 return redirect('batch')
         except User.DoesNotExist:
-            messages.error(request, 'User does not exist')
+            error = 'User does not Exist'
 
-    return render(request, 'connectTeam.html')
+    return render(request, 'team/connectTeam.html', { 'error': error })
